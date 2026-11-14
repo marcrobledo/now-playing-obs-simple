@@ -1,0 +1,259 @@
+:root{
+	--height: 512px; /* your OBS source must match this height */
+	--wrapper-padding: 32px;
+	--wrapper-radius: 24px;
+	--disc-padding: 12px;
+	--font-size-artist: 44px;
+	--font-size-album: 72px;
+	--font-size-title: 60px;
+	--text-color-artist: #989898;
+	--text-color-album: white;
+	--text-color-title: #ffd044;
+}
+
+/* @FONT-FACES */
+@font-face{
+	font-family: 'Huninn';
+	/*src: url('assets/fonts/Huninn-Regular.ttf') format('truetype');*/
+	src: url('assets/fonts/Huninn-Regular.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+body,html{
+	min-height: var(--height);
+}
+body{
+	margin:0;
+	pointer-events:none;
+	user-select:none;
+	font-family: 'Huninn', 'Segoe UI', system-ui;
+	overflow:hidden;
+}
+
+#wrapper,#wrapper-background,#wrapper2{
+	height:var(--height);
+	border-radius:var(--wrapper-radius);
+}
+#wrapper{
+	background-color:rgba(16,16,16,.75);
+	position:relative;
+
+	transition: opacity 1s;
+	transition-delay: 2s;
+	opacity:0;
+}
+#wrapper.show{
+	transition-delay: 0s;
+	opacity:1;
+}
+#wrapper-background{
+	/* background-size:cover; */
+	background-size: calc(100% * 1.2);
+	background-position:center;
+	background-repeat:no-repeat;
+	transition: opacity .5s;
+	opacity:0;
+}
+#wrapper-background.show{
+	opacity:.2;
+}
+#wrapper2{
+	position:absolute;
+	top:0; left:0;
+	width:100%; height:100%;
+
+	box-sizing:border-box;
+	height:calc(var(512px) - (var(--wrapper-padding) * 2));
+	width:100vw;
+	padding:var(--wrapper-padding);
+
+	display:flex;
+	gap:var(--disc-padding);
+	align-items:stretch;
+	justify-content:space-between;
+	
+	backdrop-filter:blur(8px);
+}
+#container-cover{
+	line-height:0;
+	position:relative;
+	flex-grow:0;
+	flex-shrink:0;
+	display: flex;/* again also a flex child */
+
+	transition: opacity 1s;
+	transition-delay: 1s;
+	opacity:0;
+}
+#container-cover.show{
+	transition-delay: 1s;
+	opacity:1;
+}
+#song-cover{
+	position:relative;
+	bottom:0;
+	left:0;
+	height:calc(var(--height) - (var(--wrapper-padding) * 2));
+	border-radius:4px;
+	z-index:501;
+	transition: .5s;
+}	
+
+
+
+
+
+#container-info{
+	display:flex;
+	flex-grow:1;
+	flex-direction:column;
+	justify-content:center;
+	z-index:502;
+
+	transition: 1s opacity;
+	transition-delay:0s;
+	opacity:0;
+}
+#container-info.show{
+	transition-delay:2s;
+	opacity:1;
+}
+#song-artist,#song-album,#song-title{
+	/* white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; */
+
+	color: white;
+	text-shadow:black 0 2px 8px;
+
+	transition: opacity 1.2s;
+	position:relative;
+	line-height:1;
+}
+#song-artist{
+	font-size:var(--font-size-artist);
+	font-weight:bold;
+	text-transform:uppercase;
+	margin-bottom: 8px;
+	color:var(--text-color-artist);
+}
+#song-album{
+	font-size:var(--font-size-album);
+	font-weight:bold;
+	text-transform:uppercase;
+	margin-bottom: 32px;
+	color:var(--text-color-album);
+}
+#song-album small{font-size:60%}
+#song-title{
+	text-transform:uppercase;
+	font-size:var(--font-size-title);
+	color:var(--text-color-title);
+}
+
+
+
+
+
+#song-disc{
+	position:absolute;
+	top:var(--disc-padding);
+	height:calc(100% - (var(--disc-padding) * 2));
+	z-index:500;
+	
+	animation: spin 3s linear infinite;
+	animation-play-state: paused;
+	animation-duration: 5s;
+
+	transition: left 1s;
+	transition-delay:0s;
+	left:0;
+}
+#song-disc.spinning{
+	animation-play-state: running;
+}
+@keyframes spin {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(360deg);}
+}
+#container-cover.show #song-disc{
+	left: calc((var(--height) / 2) - (var(--disc-padding) * 2));
+	transition-delay:2s;
+}
+
+
+
+
+
+
+
+
+
+
+#container-status{
+	width:64px;
+	height:64px;
+	position:absolute;
+	top: var(--wrapper-padding);
+	right: var(--wrapper-padding);
+	
+	
+	display:flex;
+	justify-content: center;
+	align-items:center;
+}
+
+#status0, #status1, #status2{
+	background-color:white;
+	border-radius:12px;
+	opacity:.5;
+}
+
+
+
+#container-status.playing{
+	gap:8px;
+}
+#container-status.playing #status0{
+	animation: playing .6s infinite;
+}
+#container-status.playing #status1{
+	animation: playing .2s infinite;
+}
+#container-status.playing #status2{
+	animation: playing .4s infinite;
+}
+
+#container-status.playing #status0,
+#container-status.playing #status1,
+#container-status.playing #status2{
+	width:25%;
+	height:10%;
+	animation-direction:alternate-reverse;
+}
+@keyframes playing {
+	from { height:20%;}
+	to { height:100%;}
+}
+
+#container-status.paused{
+	gap:8px;
+}
+#container-status.paused #status0, #container-status.paused #status1{
+	width:25%;
+	height:65%;
+	border-radius:4px;
+}
+
+
+
+
+
+
+
+
+
+
+
