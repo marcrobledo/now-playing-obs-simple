@@ -1,7 +1,7 @@
 # Now Playing OBS Simple
 A simple OBS browser-source overlay that shows your currently playing [foobar2000](https://www.foobar2000.org) song and album cover in a stylish way.
 
-https://github.com/marcrobledo/now-playing-obs-simple/raw/refs/heads/main/_example_video/now_playing_obs_simple_example.mp4
+https://github.com/user-attachments/assets/bdc98676-ae95-4b12-b833-4262b8559671
 
 ## Requirements
 - [OBS](https://obsproject.com/)
