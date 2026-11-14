@@ -1,7 +1,7 @@
 # Now Playing OBS Simple
 A simple OBS browser-source overlay that shows your currently playing [foobar2000](https://www.foobar2000.org) song and album cover in a stylish way.
 
-<!-- https://raw.githubusercontent.com////path/to/video.mp4 -->
+https://github.com/marcrobledo/now-playing-obs-simple/raw/refs/heads/main/_example_video/now_playing_obs_simple_example.mp4
 
 ## Requirements
 - [OBS](https://obsproject.com/)
@@ -16,19 +16,19 @@ A simple OBS browser-source overlay that shows your currently playing [foobar200
    - File: path to `now-playing-obs-simple/now_playing.json`
    - Events: check *On New Track*, *On Pause* and *On Stop*, uncheck *On Every Second*
    - Code:
-     ```
-{$crlf()
-"status":
-$if(%ispaused%,"paused",
-$if(%isplaying%,"playing", "stopped")
-),$crlf()
-"path": "$replace($replace($directory_path(%path%),\,\\),",\")",$crlf()
-"artist": "$replace($replace(%artist%,\,\\),",\")",$crlf()
-"title": "$replace($replace(%title%,\,\\),",\")",$crlf()
-"album": "$replace($replace(%album%,\,\\),",\")",$crlf()
-"date": "%date%"$crlf()
-}
-```
+     ```txt
+		{$crlf()
+		"status":
+		$if(%ispaused%,"paused",
+		$if(%isplaying%,"playing", "stopped")
+		),$crlf()
+		"path": "$replace($replace($directory_path(%path%),\,\\),",\")",$crlf()
+		"artist": "$replace($replace(%artist%,\,\\),",\")",$crlf()
+		"title": "$replace($replace(%title%,\,\\),",\")",$crlf()
+		"album": "$replace($replace(%album%,\,\\),",\")",$crlf()
+		"date": "%date%"$crlf()
+		}
+		```
 3. Add a Browser source to your OBS pointing to `now-playing-obs-simple/now_playing.html`
    - set its height to 512 and its width to around 1720 (change it at your needs)
 
